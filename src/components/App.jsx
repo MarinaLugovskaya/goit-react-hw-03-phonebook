@@ -25,19 +25,6 @@ export default class App extends Component {
     }
   }
 
-  // componentDidMount() {
-  //   const localStorageContacts = JSON.parse(localStorage.getItem("contacts"));
-
-  //   localStorageContacts && this.setState({ contacts: localStorageContacts });
-  // }
-
-  // componentDidUpdate(prevState) {
-  //   const { contacts } = this.state;
-  //   if (contacts !== prevState.contacts) {
-  //     localStorage.setItem("contacts", JSON.stringify(contacts));
-  //   }
-  // }
-
   handleDeleteContacts = (evt) => {
     this.setState({
       contacts: this.state.contacts.filter(

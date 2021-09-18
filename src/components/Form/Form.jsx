@@ -1,20 +1,20 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import css from "../Form/Form.module.css";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import css from '../Form/Form.module.css';
 
 export default class Form extends Component {
   state = {
     contacts: [],
-    name: "",
-    number: "",
+    name: '',
+    number: '',
   };
 
-  handleInputChange = (evt) => {
+  handleInputChange = evt => {
     const { name, value } = evt.currentTarget;
     this.setState({ [name]: value });
   };
 
-  handleSubmit = (evt) => {
+  handleSubmit = evt => {
     evt.preventDefault();
 
     this.props.onSubmit(this.state.name, this.state.number);
@@ -23,7 +23,7 @@ export default class Form extends Component {
   };
 
   reset = () => {
-    this.setState({ name: "", number: "" });
+    this.setState({ name: '', number: '' });
   };
 
   render() {
@@ -72,6 +72,6 @@ Form.propTypes = {
     PropTypes.shape({
       name: PropTypes.string.isRequired,
       number: PropTypes.string.isRequired,
-    }).isRequired
-  ),
+    }).isRequired,
+  ).isRequired,
 };

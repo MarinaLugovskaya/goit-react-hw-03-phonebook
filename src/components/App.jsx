@@ -14,24 +14,29 @@ export default class App extends Component {
   componentDidMount() {
     const contacts = localStorage.getItem("contacts");
     const parsedContacts = JSON.parse(contacts);
-    this.setState({ contacts: parsedContacts });
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts });
+    }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    console.log(prevState.contacts);
+  componentDidUpdate(prevState) {
     if (this.state.contacts !== prevState.contacts) {
       localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
     }
   }
 
-  getVisibleContacts = () => {
-    const { filter, contacts } = this.state;
-    const normalizedFilter = filter.toLowerCase();
+  // componentDidMount() {
+  //   const localStorageContacts = JSON.parse(localStorage.getItem("contacts"));
 
-    return contacts.filter((contact) =>
-      contact.name.toLowerCase().includes(normalizedFilter)
-    );
-  };
+  //   localStorageContacts && this.setState({ contacts: localStorageContacts });
+  // }
+
+  // componentDidUpdate(prevState) {
+  //   const { contacts } = this.state;
+  //   if (contacts !== prevState.contacts) {
+  //     localStorage.setItem("contacts", JSON.stringify(contacts));
+  //   }
+  // }
 
   handleDeleteContacts = (evt) => {
     this.setState({
@@ -60,21 +65,26 @@ export default class App extends Component {
   };
 
   render() {
-    const visibleContacts = this.getVisibleContacts();
+    const { filter, contacts } = this.state;
+    const normalizedFilter = filter.toLowerCase();
+    const visibleContacts = contacts.filter((contact) =>
+      contact.name.toLowerCase().includes(normalizedFilter)
+    );
+
     return (
       <>
         <div className={css.postcard}>
           <h1>Phonebook</h1>
-          <Form contacts={this.contacts} onSubmit={this.formSubmitHandler} />
+          <Form contacts={contacts} onSubmit={this.formSubmitHandler} />
           <div className={css.formRow}>
             <Filter value={this.filter} onChange={this.changeFilter} />
           </div>
           <h2>Contacts</h2>
           <Contacts
-            filter={this.filter}
+            filter={filter}
             onChange={this.HandleSearchContactByName}
             onClick={this.handleDeleteContacts}
-            // contacts={contacts}
+            contacts={contacts}
             contacts={visibleContacts}
           />
         </div>

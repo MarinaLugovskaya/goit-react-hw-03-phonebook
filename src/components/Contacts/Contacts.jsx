@@ -4,7 +4,7 @@ const Contacts = ({ contacts, onClick }) => {
   return (
     <ul>
       {contacts.map(contact => (
-        <li key={contact.id}>
+        <li key={contacts.id}>
           <p>
             {contact.name}: {contact.number}
           </p>
